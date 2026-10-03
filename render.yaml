@@ -1,0 +1,47 @@
+services:
+  - type: web
+    name: ipe-business-sales-bot
+    env: python
+    region: frankfurt
+    plan: starter
+    buildCommand: "pip install -r requirements.txt"
+    startCommand: "python main.py"
+    disk:
+      name: bot-data
+      mountPath: /data
+      sizeGB: 1
+    envVars:
+      - key: BOT_TOKEN
+        sync: false
+      - key: DEEPSEEK_API_KEY
+        sync: false
+      - key: DEEPSEEK_MODEL
+        value: deepseek-chat
+      - key: DEEPSEEK_BASE_URL
+        value: https://api.deepseek.com
+      - key: BUSINESS_CONNECTION_RECEPTION_ID
+        sync: false
+      - key: BUSINESS_CONNECTION_SALES_ID
+        sync: false
+      - key: ADMIN_KNOWLEDGE_CHANNEL_ID
+        sync: false
+      - key: SALES_KNOWLEDGE_CHANNEL_ID
+        sync: false
+      - key: FUNNEL_CHANNEL_ID
+        sync: false
+      - key: ADMIN_CHAT_ID
+        sync: false
+      - key: ADMIN_IDS
+        sync: false
+      - key: RUN_MODE
+        value: webhook
+      - key: WEBHOOK_URL
+        value: https://ipe-business-sales-bot.onrender.com
+      - key: WEBHOOK_SECRET
+        generateValue: true
+      - key: LEAD_STATE_PATH
+        value: /data/lead_state.json
+      - key: KNOWLEDGE_CACHE_PATH
+        value: /data/knowledge_cache.json
+      - key: CONVERSATION_HISTORY_LIMIT
+        value: 20
